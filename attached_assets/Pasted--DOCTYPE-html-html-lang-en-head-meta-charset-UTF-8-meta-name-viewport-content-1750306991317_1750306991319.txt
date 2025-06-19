@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitbody | Truly Personal Training</title>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Container for Centering Content */
+        .container {
+            width: 85%;
+            margin: auto;
+            overflow: hidden;
+            max-width: 1200px;
+        }
+
+        /* Header Styles */
+        header {
+            background: #000000;
+            color: #ffffff;
+            padding: 1rem 0;
+            border-bottom: 1px solid #333;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        header.scrolled {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd700; /* Gold */
+            text-decoration: none;
+        }
+
+        header nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #ffd700;
+        }
+
+        .cta-buttons a {
+            background: #ffd700;
+            color: #000000;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .cta-buttons a.member {
+            background: transparent;
+            color: #ffd700;
+            border: 1px solid #ffd700;
+        }
+
+        .cta-buttons a:hover {
+            background-color: #e6c300;
+            color: #000;
+        }
+        
+        .cta-buttons a.member:hover {
+            background-color: #ffd700;
+        }
+
+        /* Hero Section Styles */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1975&q=80') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            margin-top: 70px; /* Offset for fixed header */
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero .sub-headline {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .hero .rating {
+            font-size: 1.2rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+        
+        .hero .rating span {
+            font-weight: bold;
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+        }
+
+        /* General Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-headline {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        /* Introductory Section */
+        .intro {
+            background: #111111;
+        }
+
+        .intro .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .intro img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        
+        .intro p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Services Section */
+        .services {
+             background: #000000;
+        }
+
+        .services .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .services .service-item {
+            background: #1c1c1c;
+            padding: 40px 30px;
+            border: 1px solid #333;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .services .service-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.1);
+        }
+
+        .services h3 {
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        /* CTA Section Styles */
+        .cta-section {
+            background: #ffd700;
+            color: #000000;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: #000000;
+            color: #ffffff;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: #333333;
+            transform: translateY(-3px);
+        }
+        
+        .btn.secondary {
+             background: #ffffff;
+             color: #000000;
+        }
+        
+        .btn.secondary:hover {
+            background-color: #f0f0f0;
+        }
+
+        .cta-section .secondary-cta {
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+        
+         .cta-section .secondary-cta a {
+            color: #000000;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: #111111;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: #1c1c1c;
+            padding: 30px;
+            border-left: 5px solid #ffd700;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card h4 {
+            text-align: right;
+            color: #ffd700;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: #000000;
+            padding: 60px 0 20px 0;
+            border-top: 1px solid #333;
+        }
+
+        footer .container-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        footer h4 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        footer p, footer ul li {
+             color: #aaaaaa;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer ul li {
+            margin-bottom: 10px;
+        }
+
+        footer ul li a {
+            color: #aaaaaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer ul li a:hover {
+            color: #ffd700;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #888888;
+        }
+        
+        .footer-bottom a {
+            color: #aaaaaa;
+            text-decoration: none;
+        }
+        
+        .footer-bottom a:hover {
+            text-decoration: underline;
+            color: #ffd700;
+        }
+
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1c1c1c;
+            padding: 20px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+            z-index: 1001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cookie-banner p {
+            margin: 0;
+            margin-right: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+            }
+            header nav {
+                margin-top: 10px;
+            }
+            header nav a {
+                margin: 0 8px;
+            }
+            .cta-buttons {
+                margin-top: 15px;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero .sub-headline {
+                font-size: 1.2rem;
+            }
+            .intro .container {
+                grid-template-columns: 1fr;
+            }
+            .intro div:last-child {
+                order: -1; /* Move image to the top on mobile */
+            }
+            .section-headline {
+                font-size: 2.2rem;
+            }
+            .footer .container-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <div class="container">
+            <a href="#home" class="logo">Fitbody</a>
+            <nav>
+                <a href="#services">Training Offer</a>
+                <a href="#about">About Us</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="cta-buttons">
+                <a href="#signup">Sign Up</a>
+                <a href="#signup" class="member">Become a Member</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Truly Personal Training | Fitbody</h1>
+            <p class="sub-headline">Personal training in a private and supportive gym environment.</p>
+            <div class="rating">★★★★☆ <span>4.9</span> Average Rating</div>
+            <p class="tagline">Stay fit and enjoy the good life.</p>
+        </div>
+    </section>
+
+    <section class="intro" id="about">
+        <div class="container">
+            <div>
+                <h2 class="section-headline" style="text-align: left;">Why Choose Personal Training at Fitbody?</h2>
+                <p>
+                    Experience the pinnacle of personalized fitness with Fitbody. Our core philosophy is built on providing unparalleled one-on-one attention within the focused and motivating atmosphere of our private gym. With a rich legacy of <strong>30 years of professional coaching experience</strong>, our elite trainers are committed to your success.
+                </p>
+                <p>
+                    Join a thriving community of over <strong>200 members</strong> who have already embarked on their transformative journey with us. At Fitbody, your goals are our mission.
+                </p>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Welcoming Interior of Fitbody Gym">
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-headline">Our Training Offers</h2>
+            <div class="service-grid">
+                <div class="service-item">
+                    <h3>Personal Training</h3>
+                    <p>Our flagship service delivers a truly bespoke one-on-one experience in our private gym. Each session is meticulously crafted to match your individual goals, ensuring maximum results and sustained motivation.</p>
+                    <a href="#contact" class="btn">Request a Trial Session</a>
+                </div>
+                <div class="service-item">
+                    <h3>Duo Training</h3>
+                    <p>Elevate your workout by sharing the journey. Train with a friend or partner under the watchful eye of our professional coaches. It's the perfect blend of personal attention and shared motivation.</p>
+                    <a href="#contact" class="btn">I want that</a>
+                </div>
+                <div class="service-item">
+                    <h3>Small Group PT</h3>
+                    <p>Benefit from the dynamic energy of a group setting while still receiving focused, personal guidance. Our small group personal training offers an effective, engaging, and supportive fitness experience.</p>
+                    <a href="#contact" class="btn">I want that</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Start with Personal Training</h2>
+            <a href="#contact" class="btn">Request a Trial Session</a>
+            <p class="secondary-cta">Want to know more? <a href="#contact">Contact us!</a></p>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-headline">What Our Clients Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"The personal approach at Fitbody is simply unmatched. The trainers are invested in my success. I've seen incredible results and feel more confident than ever before."</p>
+                    <h4>- Rudy</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"A fantastic and private environment to train in. The professionalism and genuine care from the trainers make every session something to look forward to. My progress has been amazing."</p>
+                    <h4>- Debbie Lachman</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"After trying several gyms, I've finally found a place where I feel completely comfortable and highly motivated. The results truly speak for themselves. I can't recommend Fitbody enough!"</p>
+                    <h4>- Max</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="signup">
+        <div class="container">
+            <h2>Stay fit and enjoy life, come train at Fitbody</h2>
+            <a href="#contact" class="btn secondary">Sign Up</a>
+            <a href="#contact" class="btn">Contact</a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+           <div class="container-grid">
+                <div>
+                    <h4>Contact Information</h4>
+                    <p>123 Fitness Lane<br>Auckland, 1010<br>New Zealand</p>
+                    <p><strong>Phone:</strong> (09) 123 4567</p>
+                    <p><strong>Email:</strong> info@fitbody.co.nz</p>
+                </div>
+                <div>
+                    <h4>Training Services</h4>
+                    <ul>
+                        <li><a href="#services">Personal Training</a></li>
+                        <li><a href="#services">Duo Training</a></li>
+                        <li><a href="#services">Small Group PT</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>About Fitbody</h4>
+                     <ul>
+                        <li><a href="#about">Our Story</a></li>
+                        <li><a href="#testimonials">Experiences</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Information</h4>
+                     <ul>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#home">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Fitbody | All Rights Reserved.</p>
+            <p><a href="#terms">Terms and Conditions</a> | <a href="#privacy">Privacy Statement</a></p>
+        </div>
+    </footer>
+
+    <div class="cookie-banner" id="cookie-banner">
+        <p>This website uses cookies to enhance your experience.</p>
+        <button class="btn" onclick="document.getElementById('cookie-banner').style.display='none'">Got it!</button>
+    </div>
+    
+    <script>
+        // Simple script to add a class to header on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+</body>
+</html>

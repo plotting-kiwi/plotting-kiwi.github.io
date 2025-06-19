@@ -1,0 +1,7 @@
+Update main title to reflect Terry's Personal Training name
+
+Updates the Hero component's title from "Truly Personal Training" to "Truly Personal Training with Terry" in `client/src/components/Hero.tsx`.
+
+Replit-Commit-Author: Agent
+Replit-Commit-Session-Id: 0adabb3d-de51-4439-b7f1-78ce6a7a659d
+Replit-Commit-Screenshot-Url: https://storage.googleapis.com/screenshot-production-us-central1/a9158a09-bcc4-47a1-a326-206e0dd1ed3c/0fe7252a-8fb2-4e2c-bc4f-3fa513da4ae6.jpg
